@@ -48,18 +48,19 @@
 
 (define (my-list-ref lst num)
         (cond ((zero? num) (car lst))
-                (else (my-list-ref (cdr lst) (- num 1)))
-))
+                (else (my-list-ref (cdr lst) (- num 1)))))
 
 (define (my-list-ref lst num)
         (cond ((zero? num) (car lst))
-                (else (car (cons (my-list-ref (cdr lst) (- num 1)) '())))
-        )
-)
+                (else (car (cons (my-list-ref (cdr lst) (- num 1)) '())))))
 
 
 ; 3. Write a function start that takes two arguments, lst and num, and which returns the
 ; first num elements of lst.
+
+(define (start lst num)
+        (cond ((zero? num) '())
+                (else (cons (car lst) (start (cdr lst) (- num 1))))))
 
 ; 4.  Write a function but-last that takes two arguments, lst and num, and which returns the
 ; list of all but the last num elements of lst.
