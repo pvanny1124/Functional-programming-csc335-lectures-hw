@@ -79,6 +79,28 @@
 ; 4.  Write a function but-last that takes two arguments, lst and num, and which returns the
 ; list of all but the last num elements of lst.
 
+(define (but-last lst num)
+        (let* ((len (length lst))
+              (diff (- len num)))
+                (define (start lst num)
+                        (cond ((zero? num) '())
+                        (else (cons (car lst) (start (cdr lst) (- num 1))))))
+                (start lst diff)
+        ))
+
+(define (but-last lst num)
+        (let* ((len (length lst))
+              (diff (- len num)))
+              (define (start lst num)
+                   (define (iter lst num result)
+                      (cond ((equal? num 1) result)
+                            (else (iter (cdr lst) (- num 1) (append result (cons (car lst) '()))))
+                      )
+                   )
+              (iter (cdr lst) num (cons (car lst) '())))
+              (start lst diff)
+        ))
+
 
 ; 5.  Write a function end that takes two arguments, lst and num, and returns the last num
 ; elements of lst.
@@ -87,7 +109,7 @@
 (define (end lst num)   
         (cond ((equal? (length lst) num) lst)
                 (else (end (cdr lst) num))))
-                
+
 ;recursively
 (define (end lst num)
         (cond ((equal? (length lst) num) lst)
