@@ -87,9 +87,11 @@
 (define (end lst num)   
         (cond ((equal? (length lst) num) lst)
                 (else (end (cdr lst) num))))
-
+                
+;recursively
 (define (end lst num)
-        (cond ())
+        (cond ((equal? (length lst) num) lst)
+                (else (cons (car (end (cdr lst) num)) (cdr (end (cdr lst) num)))))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
