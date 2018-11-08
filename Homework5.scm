@@ -39,34 +39,7 @@
 ; 2.  Make all changes needed to allow the a-iexp calculator to work with numbers given in base 1.
 ; Explain carefully how you will represent such numbers; design plus, times, and exponent procedures
 ; for them.  Prove correctness of your functions.
-
-
-(define operator
-    (lambda (i-aexp) 
-      (car (cdr i-aexp))))
-  
-  (define first-operand
-    (lambda (i-aexp)
-      (car i-aexp)))
-  
-  (define second-operand
-    (lambda (i-aexp)
-      (car (cdr (cdr i-aexp)))))
-
-
-(define plus-aexp?
-        (lambda (aexp)
-          (eq? (operator aexp) '+)))
       
-(define times-aexp?
-        (lambda (aexp)
-          (eq? (operator aexp) '*)))
-      
-(define power-aexp?
-        (lambda (aexp)
-          (eq? (operator aexp) '^)))
-
-
 (define plus (lambda (m n) (append m n)))
           
 (define times (lambda (m n) 
@@ -75,13 +48,51 @@
           
 (define expon
             (lambda (base exponent)
-              (cond ((zero? exponent) 1)
-                    (else (times base (expon base (sub1 exponent)))))))
+              (times base exponent)))
           
       
 ; 3.  Exercises 2.2, 2.3 and 2.4 in Abelson and Sussman.  Proofs are not necessary.
 
+; Consider the problem of representing line segments in a plane. Each segment is
+; represented as a pair of points: a starting point and an ending point. Define a constructor
+; make-segment and selectors start-segment and end-segment that define the representation
+; of segments in terms of points. Furthermore, a point can be represented as a pair of numbers: the x
+; coordinate and the y coordinate. Accordingly, specify a constructor make-point and selectors
+; x-point and y-point that define this representation. Finally, using your selectors and
+; constructors, define a procedure midpoint-segment that takes a line segment as argument and
+; returns its midpoint (the point whose coordinates are the average of the coordinates of the endpoints).
+; To try your procedures, you’ll need a way to print points:
 
+;constructors
+(define make-segment
+  (lambda (p1 p2) (list p1 p2)))
+
+(define make-point
+  (lambda (x y) (list x y)))
+
+;selectors
+(define start-segment (lambda (x) (car x)))
+
+(define end-segment (lambda (x) (car (cdr x))))
+
+(define x-point (lambda (x) (car x)))
+
+(define y-point (lambda (x) (car (cdr x))))
+
+
+(define (midpoint-segment line-segment)
+    (let ((x-value (/ (+ (x-point (start-segment line-segment)) (x-point (end-segment line-segment))) 2))
+          (y-value (/ (+ (y-point (start-segment line-segment)) (y-point (end-segment line-segment))) 2)))
+         (list x-value y-value) 
+))
+
+(define (print-point p)
+ (newline)
+ (display "(")
+ (display (x-point p))
+ (display ",")
+ (display (y-point p))
+ (display ")"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
