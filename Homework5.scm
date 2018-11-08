@@ -94,5 +94,38 @@
  (display (y-point p))
  (display ")"))
 
+;  Implement a representation for rectangles in a plane. (Hint: You may want to make use
+; of exercise 2.2.) In terms of your constructors and selectors, create procedures that compute the
+; perimeter and the area of a given rectangle. Now implement a different representation for rectangles.
+; Can you design your system with suitable abstraction barriers, so that the same perimeter and area
+; procedures will work using either representation? 
+
+(define rectangle 
+  (lambda (p1 p2) (list p1 p2)))
+
+(define perimeter 
+    (lambda (rec) 
+      (let* ((s1 (- (y-point (end-segment rec)) (y-point (start-segment rec)))) 
+             (s2 s1)
+             (s3 (- (x-point (end-segment rec)) (x-point (start-segment rec))))
+             (s4 s3))
+
+             (+ s1 s2 s3 s4))))
+
+(define area 
+  (lambda (rec) (let ((width (- (y-point (end-segment rec)) (y-point (start-segment rec))))
+                      (len (- (x-point (end-segment rec)) (x-point (start-segment rec)))))
+                      (* width len))))
+
+;exercise 2.4
+; Here is an alternative procedural representation of pairs. For this representation, verify
+; that (car (cons x y)) yields x for any objects x and y.
+; (define (cons x y)
+;  (lambda (m) (m x y)))
+; (define (car z)
+;  (z (lambda (p q) p)))
+; What is the corresponding definition of cdr? (Hint: To verify that this works, make use of the
+; substitution model of section 1.1.5.) 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
